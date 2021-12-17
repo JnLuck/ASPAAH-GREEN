@@ -35,8 +35,8 @@
                     <div class="col">
                         <div class="md-form form-sm">
                             <select class="mdb-select" name="{{ form.tipo.html_name }}" id="{{ form.tipo.id_for_label }}">
-                            {% for o in form.tipo.field.choices %}
-                                <option value="{{o.0|spaceTrim}}"{{ form.tipo.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
+                            {% for o in form.tipo.field.choices|nextList %}
+                                <option value="{{o.0}}"{{ form.tipo.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
                             {% endfor %}
                             </select>
                             <label for="{{ form.tipo.id_for_label }}" class="active-label-select">Tipo</label>
@@ -45,8 +45,8 @@
                     <div class="col">
                         <div class="md-form form-sm">
                             <select class="mdb-select" name="{{ form.categoria.html_name }}" id="{{ form.categoria.id_for_label }}">
-                            {% for o in form.categoria.field.choices %}
-                                <option value="{{o.0|spaceTrim}}"{{ form.categoria.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
+                            {% for o in form.categoria.field.choices|nextList %}
+                                <option value="{{o.0}}"{{ form.categoria.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
                             {% endfor %}
                             </select>
                             <label for="{{ form.categoria.id_for_label }}" class="active-label-select">Categoria</label>

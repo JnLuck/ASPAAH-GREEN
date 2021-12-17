@@ -7,7 +7,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from .models import EstadoCivil, Persona, Solicitud, TipoRequisito, Requisito
+from .models import EstadoCivil, Persona, Solicitud, TipoRequisito, Requisito, Socio
 
 # from .forms import PersonaForm
 
@@ -100,30 +100,47 @@ class SolicitudUpdate(UpdateView):
 
 # Socio
 
-# class SocioList(ListView):
-#     model = Socio
-#     template_name = 'socio_list.html'
-#     context_object_name = 'socio_list'
-#     paginate_by = 3
+class SocioList(ListView):
+    model = Socio
+    template_name = 'socio_list.html'
+    context_object_name = 'socio_list'
+    paginate_by = 3
 
-# class SocioCreate(CreateView):
-#     model = Socio
-#     template_name = 'socio_form.html'
-#     fields = [
-#         'persona_id', 'codigo', 'tipo', 
-#         'categoria', 'es_socio'
-#     ]
-#     success_url = reverse_lazy('socios:sociolist')
+class SocioCreate(CreateView):
+    model = Socio
+    template_name = 'socio_form.html'
+    fields = [
+        'persona_id', 'codigo', 'tipo', 
+        'categoria', 'es_socio'
+    ]
+    # success_url = reverse_lazy('socios:sociolist')
     
-#     def get_context_data(self, *args, **kwargs):
-#         context = super().get_context_data(*args, **kwargs)
-#         context['persona'] = persona_socio = Persona.objects.get(pk=self.kwargs['pk'])
-#         return context
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['persona'] = Persona.objects.get(pk=self.kwargs['pk'])
+        return context
+    
+    def form_valid(self, form):
+        from datetime import date
+        d = date.today()
+        solicitud = Solicitud.objects.get(solicitado_por=self.kwargs['pk'])
+        solicitud.es_solicitud = 'A'
+        solicitud.fe_respuesta = d
+        solicitud.save()
+        self.object = form.save()
+        return super().form_valid(form)
 
-#     # def get_success_url(self):
-#     #        return reverse_lazy('socios:personadetail',args=(self.object.id,))
+    def get_success_url(self):
+        return reverse_lazy('socios:sociodetail',args=(self.object.id,))
 
-# class SocioDetail(DetailView):
-#     model = Socio
-#     template_name = 'socio_detail.html'
-#     context_object_name = 'socio' 
+class SocioDetail(DetailView):
+    model = Socio
+    template_name = 'socio_detail.html'
+    context_object_name = 'socio'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        socio = Socio.objects.get(pk=self.kwargs['pk'])
+        context['solicitud'] = Solicitud.objects.get(solicitado_por=socio.persona_id)
+        context['conyugue'] = Persona.objects.get(pk=22)
+        return context

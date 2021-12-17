@@ -2,7 +2,7 @@ from django.urls import path
 from .views import PersonaList, PersonaDetail, PersonaCreate, PersonaUpdate, PersonaDelete
 from .views import RequisitoUpdate, SolicitudUpdate
 
-# from .views import SocioList, SocioCreate, SocioDetail
+from .views import SocioList, SocioCreate, SocioDetail
 
 app_name = 'socios'
 urlpatterns = [
@@ -16,7 +16,7 @@ urlpatterns = [
     path('persona/solicitud/<str:pk>/', SolicitudUpdate.as_view(), name='solicitudupdate'),
 
     # Socio
-    # path('socio/', SocioList.as_view(), name='sociolist'),
-    # path('socio/<str:pk>/aditional/', SocioCreate.as_view(), name='sociocreate'),
-    # path('socio/detail/<str:pk>/', SocioDetail.as_view(), name='sociodetail'),
+    path('socio/', SocioList.as_view(), name='sociolist'),
+    path('socio/<str:pk>/aditional/', SocioCreate.as_view(), name='sociocreate'),
+    path('socio/detail/<str:pk>/', SocioDetail.as_view(), name='sociodetail'),
 ]

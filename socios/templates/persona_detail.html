@@ -87,7 +87,7 @@
                 <h6 class="font-weight-bold grey-text mb-2">Direccion</h6>
             </div>
         </div>
-        {%if persona.get_fa_parentesco_display == 'TITULAR' %}
+        {%if persona.id|socioSolicitud %}
         <hr class="my-0">
         <div class="row">
             {% if not persona.id|socioCheck %}

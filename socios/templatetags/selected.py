@@ -1,5 +1,5 @@
 from django import template
-from ..models import Persona
+from ..models import Persona, Solicitud
   
 register = template.Library()
   
@@ -50,6 +50,13 @@ def typeForm(value_type):
 def socioCheck(value_id):
     r = False
     if Persona.objects.filter(r_persona__id=value_id).exists():
+        r = True
+    return r
+
+@register.filter()
+def socioSolicitud(value_id):
+    r = False
+    if Solicitud.objects.filter(solicitado_por=value_id).exists():
         r = True
     return r
 

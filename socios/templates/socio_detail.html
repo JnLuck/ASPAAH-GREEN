@@ -25,7 +25,7 @@
                 <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel73" role="tab"><i class="bi-people-fill ig" aria-hidden="true"></i><br>Hijos</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel74" role="tab"><i class="bi-file-earmark-person-fill ig" aria-hidden="true"></i><br>Documentos</a>
+                <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel75" role="tab"><i class="bi-file-earmark-person-fill ig" aria-hidden="true"></i><br>Documentos</a>
             </li>
         </ul>
     </div>
@@ -38,12 +38,12 @@
                     <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
                         <strong>{{ socio.persona_id.nombre }} {{ socio.persona_id.ape_paterno }} {{ socio.persona_id.ape_materno }}</strong>
                     </h2>
-                    <span class="badge badge-info product mb-3 ml-xl-0 ml-4">{{ socio.get_categoria_display }}</span>
+                    <span class="badge badge-info product mb-3 ml-xl-0 ml-4">{{ socio.categoria }}</span>
                     </strong>
                     </h2>
-                    <span class="badge badge-success product mb-6 ml-2">{{ socio.get_tipo_display }}</span>
+                    <span class="badge badge-success product mb-6 ml-2">{{ socio.tipo }}</span>
                     <br>
-                    <h3 class="h3-responsive text-center text-md-left mb-6 ml-xl-0 ml-4">
+                    <!-- <h3 class="h3-responsive text-center text-md-left mb-6 ml-xl-0 ml-4">
                         <span class="red-text font-weight-bold">
                             <strong>$1449</strong>
                         </span>
@@ -52,20 +52,16 @@
                                 <s>$1789</s>
                             </small>
                         </span>
-                    </h3>
+                    </h3> -->
                     <hr class="my-0">
                     <p class="ml-xl-0 ml-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente nesciunt atque nemo neque ut officiis
                         nostrum incidunt maiores, magni optio et sunt suscipit iusto nisi totam quis, nobis mollitia
                         necessitatibus.
                     </p>
                     <p class="ml-xl-0 ml-4">
-                        <strong>Socio desde: </strong>May 25 2021</p>
+                        <strong>Socio desde: </strong>{{ solicitud.fe_respuesta }}</p>
                     <p class="ml-xl-0 ml-4">
-                        <strong>Size: </strong>9.6-inch</p>
-                    <p class="ml-xl-0 ml-4">
-                        <strong>Resolution: </strong>2048 x 1536</p>
-                    <p class="ml-xl-0 ml-4">
-                        <strong>Availability: </strong>In stock</p>
+                        <strong>Admitido por: </strong>{{ solicitud.recibido_por }}</p>
                 </div>
             </div>
             
@@ -73,42 +69,49 @@
         <!--/.Panel 1-->
         <!--Panel 2-->
         <div class="tab-pane fade" id="panel72" role="tabpanel">
-        {% if socio %}
-            <div class="row">   
-                <div class="col-lg-12 mr-3 text-center text-md-left">
-                    <h2 class="h3-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
-                        <strong>{{ socio.persona_id.nombre }} {{ socio.persona_id.ape_paterno }} {{ socio.persona_id.ape_materno }}</strong>
-                    </h2>
-                    <span class="badge badge-info product mb-3 ml-xl-0 ml-4">{{ socio.get_categoria_display }}</span>
-                    </strong>
-                    </h2>
-                    <span class="badge badge-success product mb-6 ml-2">{{ socio.get_tipo_display }}</span>
-                    <br>
-                    <h3 class="h3-responsive text-center text-md-left mb-6 ml-xl-0 ml-4">
-                        <span class="red-text font-weight-bold">
-                            <strong>$1449</strong>
-                        </span>
-                        <span class="grey-text">
-                            <small>
-                                <s>$1789</s>
-                            </small>
-                        </span>
-                    </h3>
-                    <hr class="my-0">
-                    <p class="ml-xl-0 ml-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente nesciunt atque nemo neque ut officiis
-                        nostrum incidunt maiores, magni optio et sunt suscipit iusto nisi totam quis, nobis mollitia
-                        necessitatibus.
-                    </p>
-                    <p class="ml-xl-0 ml-4">
-                        <strong>Socio desde: </strong>May 25 2021</p>
-                    <p class="ml-xl-0 ml-4">
-                        <strong>Size: </strong>9.6-inch</p>
-                    <p class="ml-xl-0 ml-4">
-                        <strong>Resolution: </strong>2048 x 1536</p>
-                    <p class="ml-xl-0 ml-4">
-                        <strong>Availability: </strong>In stock</p>
-                </div>
+        {% if conyugue %}
+        <div class="row">
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ conyugue.dni }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">DNI</h6>
             </div>
+            <div class="col-md-4 float-right">
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ conyugue.es_persona|personMode }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Status</h6>
+            </div>
+        </div>
+        <hr class="my-0">
+        <div class="row">
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ conyugue.nombre }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Nombres</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ conyugue.ape_paterno }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Apellido Paterno</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ conyugue.ape_materno }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Apellido Materno</h6>
+            </div>
+        </div>
+        <hr class="my-0">
+        <div class="row">
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ conyugue.fe_nacimiento }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Fecha de Nacimiento</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ conyugue.get_sexo_display|title }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Sexo</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ conyugue.id_es_civil|title }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Estado Civil</h6>
+            </div>
+        </div>
         {% else %}
         <div class="row">
             <div class="card-body">
@@ -126,12 +129,98 @@
         <!--/.Panel 2-->
         <!--Panel 3-->
         <div class="tab-pane fade" id="panel73" role="tabpanel">
-            <p>3</p>
+        
+            {% if conyugue %}
+            <div class="px-4">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>DNI</th>
+                                <th>Nombres</th>
+                                <th>fec. Nacimiento</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="justify-content-center">
+                                <td>1</td>
+                                <td>854855555</td>
+                                <td>Mark Pariatur Autem</td>
+                                <td>May 3, 1999</td>
+                                <td>
+                                    <a class="btn-sm btn-floating btn-success waves-effect waves-light" href="#" disabled>
+                                        <i class="fa bi-person-check-fill center"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                    <!--Table-->
+                </div>
+                <a class="btn btn-success btn-sm waves-effect waves-light">
+                    <i class="fa bi-person-plus-fill left"></i>
+                    Agregar Hijos
+                </a>
+            {% endif %}
+        </div>
         </div>
         <!--/.Panel 3-->
         <!--Panel 4-->
-        <div class="tab-pane fade" id="panel74" role="tabpanel">
-            <p>4</p>
+        <div class="tab-pane fade" id="panel75" role="tabpanel">
+            <div class="row">   
+                <div class="col-lg-12 mr-3 text-center text-md-left">
+                    <h4>
+                        <span class="badge badge-info product">Fotos</span>
+                    </h4>
+                    <hr class="my-0">
+                    <div class="md-form">
+                        <div class="file-field">
+                            <div class="btn btn-primary btn-sm float-left">
+                                <i class="fa bi-person-bounding-box center"></i>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Selecciona foto">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>
+                        <span class="badge badge-info product">Copia de DNI</span>
+                    </h4>
+                    <hr class="my-0">
+                    <div class="md-form">
+                        <div class="file-field">
+                            <div class="btn btn-primary btn-sm float-left">
+                                <i class="fa bi-person-badge-fill center"></i>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Selecciona copia de dni">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>
+                        <span class="badge badge-info product">Copia de Testimonio</span>
+                    </h4>
+                    <hr class="my-0">
+                    <div class="md-form">
+                        <div class="file-field">
+                            <div class="btn btn-primary btn-sm float-left">
+                                <i class="fa bi-file-earmark-lock-fill center"></i>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Selecciona copia de testimonio">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--/.Panel 4-->
     </div>

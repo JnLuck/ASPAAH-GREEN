@@ -1,6 +1,62 @@
-{{ form.as_p }}
+{% extends "base.html" %}
+{% load selected %}
 
-{% for r in second_model %}
-    {{ r }}
-{% endfor %}
+{% block icon-bar %}
+    <i class="bi-people-fill"></i>
+{% endblock icon-bar %}
+{% block title-bar %}
+    Solicitud
+{% endblock title-bar %}
+
+{% block content %}
+
+<div class="container-fluid mdb-page-content col-lg-12 col-md-12 mb-12">
+    <div class="card card-cascade top-page">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="md-form form-sm">
+                        <select class="mdb-select" name="{{ form.solicitado_por.html_name }}" id="{{ form.solicitado_por.id_for_label }}" disabled>
+                        {% for o in form.solicitado_por.field.choices %}
+                            <option value="{{o.0}}"{{ form.solicitado_por.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
+                        {% endfor %}
+                        </select>
+                        <label for="{{ form.solicitado_por.id_for_label }}" class="active-label-select">Persona Solicitante</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form form-sm">
+                        <select class="mdb-select" name="{{ form.recibido_por.html_name }}" id="{{ form.recibido_por.id_for_label }}" disabled>
+                        {% for o in form.recibido_por.field.choices %}
+                            <option value="{{o.0}}"{{ form.recibido_por.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
+                        {% endfor %}
+                        </select>
+                        <label for="{{ form.recibido_por.id_for_label }}" class="active-label-select">Registrado por</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form form-sm">
+                        <select class="mdb-select" name="{{ form.es_solicitud.html_name }}" id="{{ form.es_solicitud.id_for_label }}">
+                        {% for o in form.es_solicitud.field.choices %}
+                            <option value="{{o.0}}"{{ form.es_solicitud.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
+                        {% endfor %}
+                        </select>
+                        <label for="{{ form.es_solicitud.id_for_label }}" class="active-label-select">Estado de Solicitud</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row flex-center">
+                <div class="col">
+                    {% for r in second_model %}
+                        {{ r }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
 

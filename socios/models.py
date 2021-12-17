@@ -68,37 +68,57 @@ class Requisito(models.Model):
     def __str__(self):
         return self.id_solicitud.solicitado_por.nombre + ' | ' + self.ti_requisito_id.nombre
 
-# class Socio(models.Model):
+class TipoSocio(models.Model):
+    nombre_tip = models.CharField(max_length=50)
 
-#     TIPO_SOCIO = [
-#         ('AGP', 'Agropecuario'),
-#         ('AGA', 'Agroalimentario'),
-#         ('HDR', 'Hidrobiologico'),
-#     ]
+    def __str__(self):
+        return self.nombre_tip
 
-#     CATEGORIA_SOCIO = [
-#         ('PL', 'Profesional'),
-#         ('PR', 'Productor'),
-#         ('JR', 'Junior'),
-#     ]
+class CategoriaSocio(models.Model):
+    nombre_cat = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nombre_cat
+
+class Socio(models.Model):
+
+    # TIPO_SOCIO = [
+    #     ('AGP', 'Agropecuario'),
+    #     ('AGA', 'Agroalimentario'),
+    #     ('HDR', 'Hidrobiologico'),
+    # ]
+
+    # CATEGORIA_SOCIO = [
+    #     ('PL', 'Profesional'),
+    #     ('PR', 'Productor'),
+    #     ('JR', 'Junior'),
+    # ]
     
-#     persona_id = models.ForeignKey(
-#         'Persona', on_delete=models.CASCADE, 
-#         related_name="r_personas",
-#         related_query_name="r_persona",
-#     )
-#     codigo = models.CharField(max_length=10)
-#     tipo = models.CharField(max_length=3, choices=TIPO_SOCIO, default='AGP')
-#     categoria = models.CharField(max_length=2, choices=CATEGORIA_SOCIO, default='JR')
-#     es_socio = models.BooleanField(default=False)
+    persona_id = models.ForeignKey(
+        'Persona', on_delete=models.CASCADE, 
+        related_name="r_personas",
+        related_query_name="r_persona",
+    )
+    codigo = models.CharField(max_length=10)
+    tipo = models.ForeignKey(
+        'TipoSocio',on_delete=models.CASCADE,
+        related_name="r_tipos",
+        related_query_name="r_tipo",
+    )
+    categoria = models.ForeignKey(
+        'CategoriaSocio',on_delete=models.CASCADE,
+        related_name="r_categorias",
+        related_query_name="r_categoria",
+    )
+    es_socio = models.BooleanField(default=False)
     
 
-#     class Meta:
-#         verbose_name = ("Socio")
-#         verbose_name_plural = ("Socios")
+    class Meta:
+        verbose_name = ("Socio")
+        verbose_name_plural = ("Socios")
 
-#     def __str__(self):
-#         return self.persona_id.nombre
+    def __str__(self):
+        return self.persona_id.nombre
 
 # class Parentesco(models.Model):
 
