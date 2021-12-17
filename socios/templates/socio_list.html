@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block icon-bar %}
+    <i class="bi-people-fill"></i>
+{% endblock icon-bar %}
+{% block title-bar %}
+    Lista de Socios
+{% endblock title-bar %}
+
+{% block content %}
+
+<div class="container-fluid mdb-page-content col-lg-12 col-md-12 mb-12">
+    <div class="card card-cascade top-page">
+        <div class="card-body">
+            <form method='GET'>
+            <div class="row flex-center">
+                <div class="col">
+                    <div class="md-form form-sm">
+                        <i class="bi-search prefix" style="font-size: 1.2rem;"></i>
+                        <input type="text" id="search" name="q" class="form-control" autofocus value="{{ request.GET.q }}">
+                        <label for="search">Buscar Persona (DNI o nombre)</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="btn btn-sm btn-primary" type="submit">
+                        <i class="fa bi-search left"></i>
+                        Buscar
+                    </button>
+                    <a class="btn btn-sm btn-success" href="{% url 'socios:personacreate' %}" role="button">
+                        <i class="fa bi-person-plus left"></i>
+                        Solicitud
+                    </a>
+                </div>
+            </div>
+            </form>
+            <div class="px-4">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Detalle</th>
+                                <!-- <th>Editar</th> -->
+                                <th>Borrar</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in socio_list %}
+                            <tr class="justify-content-center">
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ p }}</td>
+                                <td>
+                                    <a class="btn-sm btn-floating btn-default waves-effect waves-light" href="{% url 'socios:sociodetail' p.id %}">
+                                        <i class="fa bi-person-lines-fill center"></i>
+                                    </a>
+                                </td>
+                                <!-- <td>
+                                    <a class="btn-sm btn-floating btn-info waves-effect waves-light" href="{% url 'socios:personaupdate' p.id %}">
+                                        <i class="fa bi-wrench center"></i>
+                                    </a>
+                                </td> -->
+                                <td>
+                                    <a class="btn-sm btn-floating btn-danger waves-effect waves-light" href="{% url 'socios:personadelete' p.id %}">
+                                        <i class="fa bi-person-x-fill center"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn-sm btn-floating btn-success waves-effect waves-light" href="#" disabled>
+                                        <i class="fa bi-person-check-fill center"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                    <!--Table-->
+                </div>
+
+                <hr class="my-0">
+                {% if is_paginated %}
+                <div class="d-flex justify-content-between">
+                    <div class="mt-2"></div>
+
+                    <!--Pagination -->
+                    <nav class="my-4">
+                        <ul class="pagination pagination-circle pg-blue mb-0">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Previous" href="/socio?page={{ page_obj.previous_page_number }}">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            <!--Numbers-->
+                            {% for n in page_obj.paginator.page_range %}
+                                {% if page_obj.number == n %}
+                                <li class="page-item active">
+                                    <a class="page-link" href="{% url 'socios:sociolist' %}?page={{ n }}">{{ n }}</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{% url 'socios:sociolist' %}?page={{ n }}">{{ n }}</a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                           
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Next" href="/socio?page={{ page_obj.next_page_number }}">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            
+                        </ul>
+                    </nav>
+                    <!--/Pagination -->
+
+                </div>
+                {% endif %}
+                <!--Bottom Table UI-->
+            </div>
+          
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

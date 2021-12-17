@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load selected %}
+
+{% block icon-bar %}
+    <i class="bi-file-person"></i>
+{% endblock icon-bar %}
+
+{% block title-bar %}
+    <a href="{% url 'socios:personalist' %}">Lista de Socios</a> / Detalle
+{% endblock title-bar %}
+
+{% block content %}
+
+<div class="container-fluid mdb-page-content top-page card-cascade col-lg-8 col-md-8 mb-8">
+    <!-- Nav tabs -->
+    <div class="tabs-wrapper">
+        <ul class="nav nav-justified classic-tabs tabs-primary" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link waves-light active waves-effect waves-light" data-toggle="tab" href="#panel71" role="tab"><i class="bi-person-circle ig" aria-hidden="true"></i><br>Socio</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel72" role="tab"><i class="bi-bookmark-heart-fill ig" aria-hidden="true"></i><br>Conyugue</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel73" role="tab"><i class="bi-people-fill ig" aria-hidden="true"></i><br>Hijos</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel74" role="tab"><i class="bi-file-earmark-person-fill ig" aria-hidden="true"></i><br>Documentos</a>
+            </li>
+        </ul>
+    </div>
+    <!-- Tab panels -->
+    <div class="tab-content card">
+        <!--Panel 1-->
+        <div class="tab-pane fade in show active" id="panel71" role="tabpanel">
+            <div class="row">   
+                <div class="col-lg-12 mr-3 text-center text-md-left">
+                    <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
+                        <strong>{{ socio.persona_id.nombre }} {{ socio.persona_id.ape_paterno }} {{ socio.persona_id.ape_materno }}</strong>
+                    </h2>
+                    <span class="badge badge-info product mb-3 ml-xl-0 ml-4">{{ socio.get_categoria_display }}</span>
+                    </strong>
+                    </h2>
+                    <span class="badge badge-success product mb-6 ml-2">{{ socio.get_tipo_display }}</span>
+                    <br>
+                    <h3 class="h3-responsive text-center text-md-left mb-6 ml-xl-0 ml-4">
+                        <span class="red-text font-weight-bold">
+                            <strong>$1449</strong>
+                        </span>
+                        <span class="grey-text">
+                            <small>
+                                <s>$1789</s>
+                            </small>
+                        </span>
+                    </h3>
+                    <hr class="my-0">
+                    <p class="ml-xl-0 ml-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente nesciunt atque nemo neque ut officiis
+                        nostrum incidunt maiores, magni optio et sunt suscipit iusto nisi totam quis, nobis mollitia
+                        necessitatibus.
+                    </p>
+                    <p class="ml-xl-0 ml-4">
+                        <strong>Socio desde: </strong>May 25 2021</p>
+                    <p class="ml-xl-0 ml-4">
+                        <strong>Size: </strong>9.6-inch</p>
+                    <p class="ml-xl-0 ml-4">
+                        <strong>Resolution: </strong>2048 x 1536</p>
+                    <p class="ml-xl-0 ml-4">
+                        <strong>Availability: </strong>In stock</p>
+                </div>
+            </div>
+            
+        </div>
+        <!--/.Panel 1-->
+        <!--Panel 2-->
+        <div class="tab-pane fade" id="panel72" role="tabpanel">
+        {% if socio %}
+            <div class="row">   
+                <div class="col-lg-12 mr-3 text-center text-md-left">
+                    <h2 class="h3-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
+                        <strong>{{ socio.persona_id.nombre }} {{ socio.persona_id.ape_paterno }} {{ socio.persona_id.ape_materno }}</strong>
+                    </h2>
+                    <span class="badge badge-info product mb-3 ml-xl-0 ml-4">{{ socio.get_categoria_display }}</span>
+                    </strong>
+                    </h2>
+                    <span class="badge badge-success product mb-6 ml-2">{{ socio.get_tipo_display }}</span>
+                    <br>
+                    <h3 class="h3-responsive text-center text-md-left mb-6 ml-xl-0 ml-4">
+                        <span class="red-text font-weight-bold">
+                            <strong>$1449</strong>
+                        </span>
+                        <span class="grey-text">
+                            <small>
+                                <s>$1789</s>
+                            </small>
+                        </span>
+                    </h3>
+                    <hr class="my-0">
+                    <p class="ml-xl-0 ml-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente nesciunt atque nemo neque ut officiis
+                        nostrum incidunt maiores, magni optio et sunt suscipit iusto nisi totam quis, nobis mollitia
+                        necessitatibus.
+                    </p>
+                    <p class="ml-xl-0 ml-4">
+                        <strong>Socio desde: </strong>May 25 2021</p>
+                    <p class="ml-xl-0 ml-4">
+                        <strong>Size: </strong>9.6-inch</p>
+                    <p class="ml-xl-0 ml-4">
+                        <strong>Resolution: </strong>2048 x 1536</p>
+                    <p class="ml-xl-0 ml-4">
+                        <strong>Availability: </strong>In stock</p>
+                </div>
+            </div>
+        {% else %}
+        <div class="row">
+            <div class="card-body">
+                <p class="card-text mx-auto">
+                    Aun no se a registrado ningun conyugue.
+                </p>
+                <a class="btn btn-success btn-sm waves-effect waves-light">
+                    <i class="fa bi-person-plus-fill left"></i>
+                    Agregar Conyugue
+                </a>
+            </div>
+        </div>
+        {% endif %}
+        </div>
+        <!--/.Panel 2-->
+        <!--Panel 3-->
+        <div class="tab-pane fade" id="panel73" role="tabpanel">
+            <p>3</p>
+        </div>
+        <!--/.Panel 3-->
+        <!--Panel 4-->
+        <div class="tab-pane fade" id="panel74" role="tabpanel">
+            <p>4</p>
+        </div>
+        <!--/.Panel 4-->
+    </div>
+</div>
+
+{% endblock content %}

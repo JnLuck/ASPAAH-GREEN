@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load selected %}
+
+{% block icon-bar %}
+    <i class="bi-file-person"></i>
+{% endblock icon-bar %}
+
+{% block title-bar %}
+    <a href="{% url 'socios:personalist' %}">Lista de Socios</a> / {{ form.nombre.value|typeForm }}
+{% endblock title-bar %}
+
+{% block content %}
+<div class="container-fluid mdb-page-content col-lg-12 col-md-12 mb-12">    
+    <form action="." method="POST" enctype="multipart/form-data">
+        {% csrf_token %}    
+        <div class="card card-cascade cascading-admin-card user-card">
+            <div class="admin-up d-flex justify-content-start">
+                <i class="fa bi-person-plus-fill primary-color py-2"></i>
+                <div class="data">
+                    <h5 class="font-weight-bold dark-grey-text">Datos de Persona <span class="text-muted">solicitud de socio</span></h5>
+                </div>
+            </div>
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <input type="text" name="{{ form.nombre.html_name }}" maxlength="{{ form.nombre.field.max_length }}"
+                                id="{{ form.nombre.id_for_label }}" value="{{ form.nombre.value|default_if_none:''}}"
+                                class="form-control form-control-sm" required autofocus>
+                            <label for="{{ form.nombre.id_for_label }}" class="">Nombres</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <input type="text" name="{{ form.ape_paterno.html_name }}" maxlength="{{ form.ape_paterno.field.max_length }}"
+                                id="{{ form.ape_paterno.id_for_label }}" value="{{ form.ape_paterno.value|default_if_none:''}}"
+                                class="form-control form-control-sm" required>
+                            <label for="{{ form.ape_paterno.id_for_label }}" class="">Apellido Paterno</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <input type="text" name="{{ form.ape_materno.html_name }}" maxlength="{{ form.ape_materno.field.max_length }}"
+                                id="{{ form.ape_materno.id_for_label }}" value="{{ form.ape_materno.value|default_if_none:''}}"
+                                class="form-control form-control-sm" required>
+                            <label for="{{ form.ape_materno.id_for_label }}" class="">Apellido Materno</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <input type="text" name="{{ form.dni.html_name }}" maxlength="{{ form.dni.field.max_length }}"
+                                id="{{ form.dni.id_for_label }}" value="{{ form.dni.value|default_if_none:''}}"
+                                class="form-control form-control-sm" required>
+                            <label for="{{ form.dni.id_for_label }}" class="">DNI</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <input type="text" name="{{ form.fe_nacimiento.html_name }}" placeholder="Selecciona fecha"
+                                id="{{ form.fe_nacimiento.id_for_label }}" value="{{ form.fe_nacimiento.value|date:'Y-m-d'|default_if_none:'' }}"
+                                class="form-control form-control-sm datepicker" data-mdb-format="yyyy-mm-dd" required>
+                            <label for="{{ form.fe_nacimiento.id_for_label }}" class="active">Fecha de Nacimiento</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <select class="mdb-select" name="{{ form.es_civil.html_name }}" 
+                            id="{{ form.id_es_civil.id_for_label }}">
+                            {% for o in form.id_es_civil.field.choices|nextList %}
+                                <option value="{{o.0}}"{{ form.id_es_civil.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
+                            {% endfor %}
+                            </select>
+                            <label for="{{ form.id_es_civil.id_for_label }}"  class="active-label-select">Estado Civil</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <select class="mdb-select" name="{{ form.sexo.html_name }}" id="{{ form.sexo.id_for_label }}">
+                            {% for o in form.sexo.field.choices %}
+                                <option value="{{o.0|spaceTrim}}"{{ form.sexo.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
+                            {% endfor %}
+                            </select>
+                            <label for="{{ form.sexo.id_for_label }}" class="active-label-select">Sexo</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <input type="text" name="{{ form.telefono.html_name }}" maxlength="{{ form.telefono.field.max_length }}"
+                                id="{{ form.telefono.id_for_label }}" value="{{ form.telefono.value|default_if_none:''}}"
+                                class="form-control form-control-sm" required>
+                            <label for="{{ form.telefono.id_for_label }}" class="">N° Telefono</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <input type="text" name="{{ form.email.html_name }}" maxlength="{{ form.email.field.max_length }}"
+                                id="{{ form.email.id_for_label }}" value="{{ form.email.value|default_if_none:''}}"
+                                class="form-control form-control-sm" required>
+                            <label for="{{ form.email.id_for_label }}" class="">Email</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <input type="text" name="{{ form.direccion.html_name }}" maxlength="{{ form.direccion.field.max_length }}"
+                                id="{{ form.direccion.id_for_label }}" value="{{ form.direccion.value|default_if_none:''}}"
+                                class="form-control form-control-sm" required>
+                            <label for="{{ form.direccion.id_for_label }}" class="">Direccion</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <fieldset class="md-form form-sm form-check mt-4">
+                            <input class="form-check-input filled-in" type="checkbox"{{ form.es_persona.value|checkedValue }}
+                            name="{{ form.es_persona.html_name }}" id="{{ form.es_persona.id_for_label }}">
+                            <label class="form-check-label" for="{{ form.es_persona.id_for_label }}">{{ form.es_persona.value|personMode }}</label>
+                        </fieldset>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+                <hr>
+                <div class="col">
+                    {% if persona.id %}
+                        <a href="{% url 'socios:personadetail' persona.id %}" class="btn btn-sm btn-danger">Cancelar</a>
+                    {% else %}
+                        <a href="{% url 'socios:personalist' %}" class="btn btn-sm btn-danger">Cancelar</a>
+                    {% endif %}
+                    <input type="submit" value="Guardar" class="btn btn-sm btn-primary">
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+{% endblock content %}

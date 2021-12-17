@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load selected %}
+
+{% block icon-bar %}
+    <i class="bi-file-person"></i>
+{% endblock icon-bar %}
+
+{% block title-bar %}
+    <a href="{% url 'socios:personalist' %}">Lista de Socios</a> / {{ form.nombre.value|typeForm }}
+{% endblock title-bar %}
+
+{% block content %}
+<div class="container-fluid mdb-page-content col-lg-12 col-md-12 mb-12">    
+    <form action="." method="POST" enctype="multipart/form-data">
+        {% csrf_token %}    
+        <div class="card card-cascade cascading-admin-card user-card">
+            <div class="admin-up d-flex justify-content-start">
+                <i class="fa bi-person-plus-fill primary-color py-2"></i>
+                <div class="data">
+                    <h5 class="font-weight-bold dark-grey-text">Datos de Socio <span class="text-muted">{{ persona }}</span></h5>
+                </div>
+            </div>
+            <div class="card-body text-center">
+                <input type="text" name="{{ form.persona_id.html_name }}" maxlength="{{ form.persona_id.field.max_length }}"
+                id="{{ form.persona_id.id_for_label }}" value="{{ form.persona_id.value|default_if_none:persona.id }}" hidden>
+                <div class="row">
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <input type="text" name="{{ form.codigo.html_name }}" maxlength="{{ form.codigo.field.max_length }}"
+                                id="{{ form.codigo.id_for_label }}" value="{{ form.codigo.value|default_if_none:''}}"
+                                class="form-control form-control-sm" required>
+                            <label for="{{ form.codigo.id_for_label }}" class="">N° Codigo</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <select class="mdb-select" name="{{ form.tipo.html_name }}" id="{{ form.tipo.id_for_label }}">
+                            {% for o in form.tipo.field.choices %}
+                                <option value="{{o.0|spaceTrim}}"{{ form.tipo.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
+                            {% endfor %}
+                            </select>
+                            <label for="{{ form.tipo.id_for_label }}" class="active-label-select">Tipo</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form form-sm">
+                            <select class="mdb-select" name="{{ form.categoria.html_name }}" id="{{ form.categoria.id_for_label }}">
+                            {% for o in form.categoria.field.choices %}
+                                <option value="{{o.0|spaceTrim}}"{{ form.categoria.value|selectedOption:o.0 }}>{{ o.1|title }}</option>
+                            {% endfor %}
+                            </select>
+                            <label for="{{ form.categoria.id_for_label }}" class="active-label-select">Categoria</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <fieldset class="md-form form-sm form-check mt-4">
+                            <input class="form-check-input filled-in" type="checkbox"{{ form.es_socio.value|checkedValue }}
+                            name="{{ form.es_socio.html_name }}" id="{{ form.es_socio.id_for_label }}">
+                            <label class="form-check-label" for="{{ form.es_socio.id_for_label }}">Status</label>
+                        </fieldset>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+                <hr>
+                <div class="col">
+                    {% if persona.id %}
+                        <a href="{% url 'socios:personadetail' persona.id %}" class="btn btn-sm btn-danger">Cancelar</a>
+                    {% else %}
+                        <a href="{% url 'socios:personalist' %}" class="btn btn-sm btn-danger">Cancelar</a>
+                    {% endif %}
+                    <input type="submit" value="Guardar" class="btn btn-sm btn-primary">
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+{% endblock content %}

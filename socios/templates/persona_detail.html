@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load selected %}
+
+{% block icon-bar %}
+    <i class="bi-file-person"></i>
+{% endblock icon-bar %}
+
+{% block title-bar %}
+    <a href="{% url 'socios:personalist' %}">Lista de Socios</a> / Detalle
+{% endblock title-bar %}
+
+{% block content %}
+
+<div class="container-fluid mdb-page-content col-lg-8 col-md-8 mb-8">
+<div class="card card-cascade cascading-admin-card user-card">
+
+    <!--Card Data-->
+    <div class="admin-up d-flex justify-content-start">
+        <i class="fa bi-person-lines-fill info-color py-2"></i>
+        <div class="data">
+            <h5 class="font-weight-bold dark-grey-text">Datos de Persona <span class="text-muted">{{ persona.get_fa_parentesco_display }}</span></h5 class="h6">
+        </div>
+        <div class="mx-2">
+        <a class="btn-sm btn-floating btn-info waves-effect waves-light" 
+        href="{% url 'socios:personaupdate' persona.id %}" data-toggle="tooltip" data-placement="top"
+         title="Editar a {{ persona.nombre }}">
+            <i class="bi-wrench center"></i>
+        </a>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.dni }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">DNI</h6>
+            </div>
+            <div class="col-md-4 float-right">
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.es_persona|personMode }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Status</h6>
+            </div>
+        </div>
+        <hr class="my-0">
+        <div class="row">
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.nombre }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Nombres</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.ape_paterno }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Apellido Paterno</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.ape_materno }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Apellido Materno</h6>
+            </div>
+        </div>
+        <hr class="my-0">
+        <div class="row">
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.fe_nacimiento }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Fecha de Nacimiento</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.get_sexo_display|title }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Sexo</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.get_es_civil_display|title }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Estado Civil</h6>
+            </div>
+        </div>
+        <hr class="my-0">
+        <div class="row">
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.telefono }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">Telefono</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6" class="h6"><strong>{{ persona.email }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-4">E-mail</h6>
+            </div>
+            <div class="col-md-4 float-right">
+                <h5 class="h6"><strong>{{ persona.direccion }}</strong></h5 class="h6">
+                <h6 class="font-weight-bold grey-text mb-2">Direccion</h6>
+            </div>
+        </div>
+        {%if persona.get_fa_parentesco_display == 'TITULAR' %}
+        <hr class="my-0">
+        <div class="row">
+            {% if not persona.id|socioCheck %}
+            <div class="col-md-4 float-right">
+                <a href="{% url 'socios:sociocreate' persona.id %}" class="btn btn-sm btn-primary">
+                    <i class="fa bi-person-check-fill left"></i>
+                    Aceptar Socio
+                </a>
+            </div>
+            <div class="col-md-4 float-right">
+                <button class="btn btn-sm btn-warning" type="submit">
+                    <i class="fa bi-person-x-fill left"></i>
+                    Denegar Socio
+                </button>
+            </div>
+            {% else %}
+            <div class="col-md-4 float-right">
+                <button class="btn btn-sm btn-success" disabled>
+                    <i class="fa bi-shield-check left"></i>
+                    Socio Aceptado
+                </button>
+            </div>
+            {% endif %}
+            <div class="col-md-4 float-right">
+                <a href="{% url 'socios:personalist' %}" class="btn btn-sm btn-danger">
+                    <i class="fa bi-x-circle-fill left"></i>
+                    Cancelar
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <!--/.Card content-->
+
+</div>
+</div>
+
+{% endblock content %}
